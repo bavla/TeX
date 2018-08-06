@@ -1,0 +1,249 @@
+%
+% SKRIPTA.STY / DS1.STY - LaTeX macroji
+%
+% verzija 13. sep 1989
+% verzija 22. okt 1989 - okolja izrek, trditev, dokaz
+% verzija 27. jul 1992 - system, zgled, xor (13.8.91)
+% verzija 25. feb 1994 - DS1.MAC + OR.STY
+% verzija  1. nov 1994 - NET.STY
+% verzija  7. jan 1995 - fancy..., upset, downset, sqsubsetdot
+%
+
+% \ifundefined{skripta}
+ \expandafter\ifx\csname skripta\endcsname\relax \def\skripta{skripta}
+% \then go ahead \else do nothing
+ \else \endinput \fi
+
+\typeout{Document Style Option 'Skripta' ver 0.6. / 7-Jan-95 / V.B.}
+
+\usepackage{latexsym}
+\usepackage{fancyheadings}
+
+% *** page layout
+
+\marginparsep 10pt \topmargin -12 true mm
+\headheight 12pt \headsep 25pt
+\footskip 30pt
+\oddsidemargin 20mm \evensidemargin 20mm \marginparwidth 30mm
+\textheight 193 true mm \textwidth 125 true mm
+
+%\if@twoside \oddsidemargin 5pt \evensidemargin 5pt \marginparwidth 30mm
+% \else \oddsidemargin 5pt \evensidemargin 5pt \marginparwidth 30mm \fi
+
+% *** floats control
+
+\setcounter{topnumber}{4}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\textfraction}{0.2}
+
+% *** clock macro
+
+\newcommand{\clock}{\count254=\time \divide\count254 by 60
+ \count255=\count254 \multiply\count255 by -60
+ \advance\count255 by \time
+ \ifnum\count254<10 0\fi\number\count254\,:\,%
+ \ifnum\count255<10 0\fi\number\count255}
+
+% *** headers and footers (fancyheadings)
+
+\pagestyle{fancyplain}
+% \addtolength{\headwidth}{\marginparsep}
+% \addtolength{\headwidth}{\marginparwidth}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}} % remember chapter title
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+                                                % section number and title
+\lhead[\fancyplain{}{\bf\thepage}]{\fancyplain{}{\bf\rightmark}}
+\rhead[\fancyplain{}{\bf\leftmark}]{\fancyplain{}{\bf\thepage}}
+\cfoot{}
+\newcommand{\draft}[1]{
+ \plainfootrulewidth 0.4pt \footrulewidth 0.4pt
+ \lfoot{\fancyplain{#1}{#1}}
+ \rfoot{\fancyplain{\today / \clock}{\today / \clock}}
+ \gdef\lecture##1{\ifodd\value{page} \normalmarginpar
+  \else \reversemarginpar \fi \marginpar{{\bf (##1)}} }
+ \gdef\remark##1{\ifodd\value{page} \normalmarginpar
+  \else \reversemarginpar \fi \marginpar{{\footnotesize ##1}} }
+}
+
+% ----------
+
+\newcommand{\library}[1]{}
+\newcommand{\lecture}[1]{}
+\newcommand{\remark}[1]{}
+
+\newcommand{\res}{{\rm r}}
+\newcommand{\7}{\'{c}}
+\newcommand{\Q}{\circle*{3}}
+
+\newcommand{\centigrade}{\char'027$\š$C}   % \centigrade  Celsius degrees
+
+\newcommand{\degrees}{^\circ}
+\mathchardef\dash="002D
+\def\rr{\mathop{\bf r}\nolimits}
+
+\newcommand{\no}[1]{\makebox[1ex]{#1}}
+
+\newcommand{\deriv}[2]{\frac{{\rm d} #1}{{\rm d} #2}}
+\newcommand{\dderiv}[2]{\frac{{\rm d}^2 #1}{{\rm d} #2^2}}
+\newcommand{\pardf}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pards}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\pardxy}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+\newcommand{\lcm}{\rm lcm}
+
+\newcommand{\crta}[1]{\overline{#1}}
+% \newcommand{\con}{\mbox{\rm con\,}}
+\newcommand{\mv}{\rule[-1.25ex]{0mm}{3.6ex}}
+\newcommand{\rec}[1]{\frac{1}{#1}}
+\newcommand{\lab}[1]{\mbox{#1}}
+
+% \xor
+
+\newbox\orbox
+\mathchardef\orr="025F
+\newcommand{\xor}{\setbox\orbox=\hbox{$\orr$}%
+  \mathbin{\orr\llap{\kern.1\wd\orbox
+    \vrule height.05ex width.8\wd\orbox depth.05ex
+    \kern.1\wd\orbox}} }
+
+%
+%    o k o l j a
+%
+
+ \newcommand{\slikaEPS}[3]{%
+   \begin{figure}
+    \begin{center}
+     \epsfig{figure=#1.eps,width=#2}
+    \end{center}
+    \caption{#3}
+   \end{figure}
+  }
+
+ \newcommand{\slika}[4]{\begin{figure}
+   \begin{center}
+    \par\framebox{ \vbox to #3{\hbox to #2{\special{em:graph #1,#2}}
+    \vfill\rm}}
+   \end{center}
+   \caption{#4}
+  \end{figure}}
+
+%
+% Theorems
+%
+
+ \newtheorem{izrek}{IZREK}[chapter]
+ \newtheorem{trditev}[izrek]{TRDITEV}
+ \newtheorem{posledica}[izrek]{POSLEDICA}
+ \renewcommand{\theizrek}{\thechapter.\arabic{izrek} }
+ \newcommand{\konec}{\hspace*{1mm}\hfill$\Box$\endgraf}
+ \newenvironment{dokaz}{{\bf Dokaz:}\ }{\konec}
+
+ \newenvironment{opomba}{\medbreak\par\noindent{\bf OPOMBA:}\ }{\konec}
+
+ \newcounter{example}[chapter]
+ \newenvironment{zgled}{\medbreak \par \refstepcounter{example}%
+   \noindent{\bf PRIMER \thechapter.\theexample} \ }%
+   {\hspace*{1pt}\konec}
+
+% program
+
+ \newenvironment{program}{\renewcommand{\figurename}{Program }%
+   \renewcommand{\baselinestretch}{0.75}%
+   \begin{figure}}{\end{figure}\renewcommand{\figurename}{Slika }}
+
+%
+% system
+%
+
+ \catcode`\@=11
+ \def\system#1{\vcenter{\openup1\jot\m@th
+   \ialign{&\hfil$##$&$##$\hfil&\strut${}##{}$\crcr
+   #1\crcr}}}
+ \catcode`\@=12
+
+%
+% operations, relations
+%
+
+% \newcommand{\sqsubsetdot}{\mathrel{\sqsubset\llap{$\cdot$}}}
+ \newcommand{\sqsubsetdot}{\mathrel{\sqsubset\kern-1.6ex\cdot}}
+
+%
+% functions
+%
+
+ \def\tg{\mathop{\rm tg}\nolimits}
+ \def\ctg{\mathop{\rm ctg}\nolimits}
+ \def\sh{\mathop{\rm sh}\nolimits}
+ \def\ch{\mathop{\rm ch}\nolimits}
+ \def\th{\mathop{\rm th}\nolimits}
+ \def\cth{\mathop{\rm cth}\nolimits}
+ \def\arc{\mathop{\rm arc}\nolimits}
+ \def\Arc{\mathop{\rm Arc}\nolimits}
+
+ \def\Grad{\mathop{\rm grad}\nolimits}
+ \def\Div{\mathop{\rm div}\nolimits}
+ \def\Rot{\mathop{\rm rot}\nolimits}
+
+ \def\var{\mathop{\rm var}\nolimits}
+ \def\cov{\mathop{\rm cov}\nolimits}
+ \def\sign{\mathop{\rm sign}\nolimits}
+
+ \def\Min{\mathop{\rm Min}}
+ \def\Max{\mathop{\rm Max}}
+ \def\argmin{\mathop{\rm argmin}}
+ \def\argmax{\mathop{\rm argmax}}
+ \def\card{\mathop{\rm card}\nolimits}
+ \def\Cn{\mathop{\rm Cn}\nolimits}
+ \def\cn{\mathop{\rm cn}\nolimits}
+ \def\ord{\mathop{\rm ord}\nolimits}
+
+ \newcommand{\upset}[1]{\uparrow\!(#1)}
+ \newcommand{\downset}[1]{\downarrow\!(#1)}
+
+ \mathchardef\hyphen="002D
+
+ \newcommand{\Qed}{\strut\hfill$\Box$\endgraf}
+
+%
+% Sets
+%
+ \def\NN{\hbox{\sf I\kern-.13em\hbox{N}}}
+ \def\RR{\hbox{\sf I\kern-.14em\hbox{R}}}
+ \def\ZZ{{\hbox{\sf Z\kern-.43emZ}}}
+ \def\CC{\hbox{\sf C\kern -.48emC}}
+ \def\QQ{\hbox{\sf C\kern -.48emQ}}
+ \def\Cc{\hbox{\sf C\kern -.47em {\raise .48ex \hbox{$\scriptscriptstyle |$}}
+   \kern-.5em {\raise .48ex \hbox{$\scriptscriptstyle |$}} }}
+ \def\Qq{\hbox{\sf Q\kern -.57em {\raise .48ex \hbox{$\scriptscriptstyle |$}}
+   \kern-.55em {\raise .48ex \hbox{$\scriptscriptstyle |$}} }}
+ \newcommand{\BB}{\hbox{\sf I\kern-.14em\hbox{B}}}
+
+\newcommand{\Times}{\mathop{\mbox{\huge $\times$}}}
+
+\newcommand{\Dom}{{\cal D}}
+\newcommand{\Ran}{{\cal R}}
+\newcommand{\id}{\mbox{\rm id}}
+\newcommand{\Id}{\mbox{\rm I}}
+\newcommand{\Total}{\mbox{\rm T}}
+ \newcommand{\converse}[1]{#1^{-1}}
+
+\newcommand{\Rel}{\mbox{\bf Rel}}
+\newcommand{\Eqv}{\mbox{\bf Eqv}}
+\newcommand{\eqv}{\mbox{\rm eqv}}
+\newcommand{\Graph}{\mbox{\bf Gph}}
+\newcommand{\degree}{\mbox{\rm deg}}
+\newcommand{\val}{\mbox{\rm val}}
+\newcommand{\outdeg}{\mbox{\rm outdeg}}
+\newcommand{\indeg}{\mbox{\rm indeg}}
+\newcommand{\ext}{\mbox{\rm ext}}
+\newcommand{\ini}{\mbox{\rm ini}}
+\newcommand{\ter}{\mbox{\rm ter}}
+\newcommand{\twin}{\mbox{\rm twin}}
+\newcommand{\Mat}[1]{\mbox{\bf #1}}
+
+\endinput
+
+%******************************************************************
+

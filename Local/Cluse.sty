@@ -1,0 +1,45 @@
+%
+% CLUSE.STY  - ukazi za CLUSE
+% risanje dendrogramov
+%
+% (c) 1989 Vladimir Batagelj
+%
+% DENDRO.TEX - risanje dendrogramov v TEXu
+% verzija 0: 14. jan 1989
+% verzija 1: 30. apr 1989 - branje datotek
+% verzija 2: 13. avg 1989 - nemonotonost
+%
+% verzija 1: 18. avg 1989 - CLUSE.STY
+%
+% \ifundefined{cluse}
+ \expandafter\ifx\csname cluse\endcsname\relax \def\cluse{cluse}
+% \then go ahead \else do nothing
+ \else \endinput \fi
+
+\typeout{Document Style Option 'Cluse' ver 0.1. / 18-Aug-89 / V.B.}
+
+%  \otu{h}{name}{num}
+
+  \newsavebox{\clunit}                % OTU-box
+  \newcounter{w}  \setcounter{w}{80}  % width of OTU-box
+  \newcounter{h}  \setcounter{h}{15}  % height of OTU-box
+  \newcommand{\otu}[3]{ 
+    \savebox{\clunit}(\thew,\theh){\makebox[\thew pt]{\sf #2 \hfill #3}}
+    \put(0,#1){\usebox{\clunit}}   
+  }
+ 
+%  \connect{x}{y}{dx}{-dy}{-dx}
+
+  \newcounter{x}  \newcounter{y}      % (x,y)  current point
+  \newcommand{\connect}[5]{
+    \setcounter{x}{#1} \setcounter{y}{#2}
+    \put(\thex,\they){\ifnum #3<0 \line(-1,0){-#3} \else \line(1,0){#3} \fi} 
+    \addtocounter{x}{#3}
+    \put(\thex,\they){\line(0,-1){#4}} 
+    \addtocounter{y}{-#4}
+    \put(\thex,\they){\ifnum #5<0 \line(1,0){-#5} \else \line(-1,0){#5} \fi}
+  }
+
+\endinput
+% *************************************************************
+

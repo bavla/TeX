@@ -1,0 +1,95 @@
+%
+% VEGA.sty  - prilagoditev zvrsti lokalnim meram in domaci dodatki
+%
+% verzija 0.1: 12-Nov-88
+% verzija 0.2:  4-Dec-88
+% verzija 0.3:  7-Jan-89  \Div, \hyphen, \topmargin
+% verzija 0.4: 27-Mar-89  \var, \cov, \sign
+% verzija 0.5: 14-Avg-90  matematicne mnozice \sf
+% verzija 0.6: 28-Oct-90  LamSTeX
+%
+% Vladimir Batagelj
+%
+
+% \ifundefined{mafija}
+ \expandafter\ifx\csname mafija\endcsname\relax \def\mafija{mafija}
+% \then go ahead \else do nothing
+ \else \endinput \fi
+
+\typeout{Document Style Option 'Vega2e' ver 0.6. / 28-Oct-90 / V.B.}
+
+% Here are the the PiCTeX logo, and the syllable PiC:
+
+ \def\PiC{P\kern-.12em\lower.5ex\hbox{I}\kern-.075emC}
+ \def\PiCTeX{\PiC\kern-.11em\TeX}
+
+% Here are the AmSTeX and LamSTeX logo, and the syllable AmS:
+
+ \def\AmS{${\cal A}\kern-.1667em\lower.5ex
+          \hbox{${\cal M}$}\kern-.125em{\cal S}$}
+
+ \def\AmSTeX{\AmS-\TeX}
+
+ \def\LamSTeX{L\kern-.4em\raise.3ex\hbox{\small$\cal A$}\kern-.25em
+ \lower.4ex\hbox{$\cal M$}\kern-.1em{$\cal S$}-\TeX}
+
+% Here is the the BibTeX logo
+
+\newcommand{\BibTeX}{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em\TeX}}
+
+% Here is the the SLiTeX logo
+
+% \newcommand{\SLiTeX}{{\rm S\kern-.06em{\sc l\kern-.035emi}\kern-.06em\TeX}}
+
+
+\if@twoside \oddsidemargin 5pt \evensidemargin 5pt \marginparwidth 20pt
+ \else \oddsidemargin 5pt \evensidemargin 5pt \marginparwidth 20pt \fi
+
+\marginparsep 10pt \topmargin -12 true mm \headheight 12pt \headsep 25pt
+
+\textheight 23 true cm \textwidth 16 true cm
+\columnsep 10pt \columnseprule 0pt
+
+% \let\LARGE=\Large
+% \let\huge=\LARGE
+% \let\Huge=\huge
+
+ \def\tg{\mathop{\rm tg}\nolimits}
+ \def\ctg{\mathop{\rm ctg}\nolimits}
+ \def\sh{\mathop{\rm sh}\nolimits}
+ \def\ch{\mathop{\rm ch}\nolimits}
+ \def\th{\mathop{\rm th}\nolimits}
+ \def\cth{\mathop{\rm cth}\nolimits}
+ \def\arc{\mathop{\rm arc}\nolimits}
+ \def\Arc{\mathop{\rm Arc}\nolimits}
+
+ \def\Grad{\mathop{\rm grad}\nolimits}
+ \def\Div{\mathop{\rm div}\nolimits}
+ \def\Rot{\mathop{\rm rot}\nolimits}
+
+ \def\var{\mathop{\rm var}\nolimits}
+ \def\cov{\mathop{\rm cov}\nolimits}
+ \def\sign{\mathop{\rm sign}\nolimits}
+
+ \def\Min{\mathop{\rm Min}\nolimits}
+ \def\Max{\mathop{\rm Max}\nolimits}
+ \def\card{\mathop{\rm card}\nolimits}
+ \def\ord{\mathop{\rm ord}\nolimits}
+ \def\Cn{\mathop{\rm Cn}\nolimits}
+ \def\cn{\mathop{\rm cn}\nolimits}
+
+ \mathchardef\hyphen="002D
+
+ \newcommand{\Qed}{\rule{2.5mm}{3mm}}
+
+ \def\NN{\hbox{\sf I\kern-.13em\hbox{N}}}
+ \def\RR{\hbox{\sf I\kern-.14em\hbox{R}}}
+ \def\ZZ{{\hbox{\sf Z\kern-.43emZ}}}
+ \def\CC{\hbox{\sf C\kern -.48emC}}
+ \def\QQ{\hbox{\sf C\kern -.48emQ}}
+ \def\Cc{\hbox{\sf C\kern -.47em {\raise .48ex \hbox{$\scriptscriptstyle |$}}
+   \kern-.5em {\raise .48ex \hbox{$\scriptscriptstyle |$}} }}
+ \def\Qq{\hbox{\sf Q\kern -.57em {\raise .48ex \hbox{$\scriptscriptstyle |$}}
+   \kern-.55em {\raise .48ex \hbox{$\scriptscriptstyle |$}} }}
+
+\endinput
